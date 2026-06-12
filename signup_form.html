@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Sign Up</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: system-ui, sans-serif;
+      background: #f4f4f4;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1rem;
+    }
+
+    .form-wrap {
+      max-width: 420px;
+      width: 100%;
+      background: #fff;
+      border: 1px solid #e0e0e0;
+      border-radius: 12px;
+      padding: 2rem;
+    }
+
+    .form-title {
+      font-size: 22px;
+      font-weight: 600;
+      color: #111;
+      margin-bottom: 0.25rem;
+    }
+
+    .form-sub {
+      font-size: 14px;
+      color: #777;
+      margin-bottom: 1.75rem;
+    }
+
+    .row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+    .field {
+      margin-bottom: 1.1rem;
+    }
+
+    .field label {
+      display: block;
+      font-size: 13px;
+      font-weight: 500;
+      color: #555;
+      margin-bottom: 5px;
+    }
+
+    .field input {
+      width: 100%;
+      padding: 9px 12px;
+      font-size: 14px;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      outline: none;
+      transition: border-color 0.15s;
+      color: #111;
+      background: #fff;
+    }
+
+    .field input:focus {
+      border-color: #555;
+    }
+
+    .field input::placeholder {
+      color: #bbb;
+    }
+
+    .submit-btn {
+      width: 100%;
+      margin-top: 1.25rem;
+      padding: 10px;
+      font-size: 15px;
+      font-weight: 500;
+      background: #111;
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: opacity 0.15s;
+    }
+
+    .submit-btn:hover { opacity: 0.85; }
+
+    .submit-btn:disabled {
+      cursor: wait;
+      opacity: 0.65;
+    }
+
+    .message {
+      display: none;
+      margin-top: 1rem;
+      padding: 10px 12px;
+      border-radius: 8px;
+      font-size: 13px;
+      line-height: 1.4;
+    }
+
+    .message.error {
+      display: block;
+      color: #8a1f1f;
+      background: #fdecec;
+      border: 1px solid #f6caca;
+    }
+
+    .terms {
+      font-size: 12px;
+      color: #aaa;
+      text-align: center;
+      margin-top: 1rem;
+      line-height: 1.5;
+    }
+
+    .terms a { color: #777; }
+
+    .divider {
+      text-align: center;
+      font-size: 13px;
+      color: #bbb;
+      margin: 1.25rem 0;
+      position: relative;
+    }
+
+    .divider::before, .divider::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      width: 42%;
+      height: 1px;
+      background: #eee;
+    }
+
+    .divider::before { left: 0; }
+    .divider::after { right: 0; }
+
+    .signin-link {
+      text-align: center;
+      font-size: 13px;
+      color: #777;
+      margin-top: 1rem;
+    }
+
+    .signin-link a {
+      color: #111;
+      text-decoration: underline;
+    }
+
+    #success {
+      display: none;
+      text-align: center;
+      padding: 2rem 1rem;
+    }
+
+    #success .check {
+      font-size: 48px;
+      color: #2e7d32;
+      margin-bottom: 0.75rem;
+    }
+
+    #success .success-title {
+      font-size: 20px;
+      font-weight: 600;
+      color: #111;
+      margin-bottom: 0.5rem;
+    }
+
+    #success p {
+      color: #777;
+      font-size: 14px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="form-wrap">
+
+    <div id="form-view">
+      <h1 class="form-title">Create your account</h1>
+      <p class="form-sub">Join us - it only takes a minute.</p>
+
+      <div class="row">
+        <div class="field">
+          <label for="fname">First name</label>
+          <input type="text" id="fname" placeholder="Jane" autocomplete="given-name" />
+        </div>
+        <div class="field">
+          <label for="lname">Last name</label>
+          <input type="text" id="lname" placeholder="Doe" autocomplete="family-name" />
+        </div>
+      </div>
+
+      <div class="field">
+        <label for="email">Email</label>
+        <input type="email" id="email" placeholder="jane@example.com" autocomplete="email" />
+      </div>
+
+      <div class="field">
+        <label for="password">Password</label>
+        <input type="password" id="password" placeholder="At least 8 characters" autocomplete="new-password" />
+      </div>
+
+      <button class="submit-btn" id="submit-btn" onclick="handleSignup()">Create account</button>
+      <div class="message" id="message" role="alert"></div>
+
+      <p class="terms">
+        By signing up, you agree to our
+        <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a>.
+      </p>
+
+      <div class="divider">or</div>
+
+      <p class="signin-link">Already have an account? <a href="login_form.html">Sign in</a></p>
+    </div>
+
+    <div id="success">
+      <div class="check"><i class="ti ti-circle-check"></i></div>
+      <p class="success-title">You're all set!</p>
+      <p>Account created. You can log in now.</p>
+    </div>
+
+  </div>
+
+  <script>
+    const API_BASE = window.location.origin.startsWith('http')
+      ? window.location.origin
+      : 'http://localhost:5000';
+
+    function showError(text) {
+      const message = document.getElementById('message');
+      message.textContent = text;
+      message.className = 'message error';
+    }
+
+    async function handleSignup() {
+      const fname = document.getElementById('fname').value.trim();
+      const lname = document.getElementById('lname').value.trim();
+      const email = document.getElementById('email').value.trim();
+      const password = document.getElementById('password').value;
+      const button = document.getElementById('submit-btn');
+      const message = document.getElementById('message');
+
+      message.textContent = '';
+      message.className = 'message';
+
+      if (!fname || !lname || !email || !password) {
+        showError('Please fill in all fields.');
+        return;
+      }
+      if (!email.includes('@')) {
+        showError('Please enter a valid email address.');
+        return;
+      }
+      if (password.length < 8) {
+        showError('Password must be at least 8 characters.');
+        return;
+      }
+
+      button.disabled = true;
+      button.textContent = 'Creating account...';
+
+      try {
+        const response = await fetch(`${API_BASE}/api/auth/register`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            first_name: fname,
+            last_name: lname,
+            email,
+            password
+          })
+        });
+
+        const data = await response.json();
+
+        if (!response.ok) {
+          throw new Error(data.message || 'Signup failed');
+        }
+
+        document.getElementById('form-view').style.display = 'none';
+        document.getElementById('success').style.display = 'block';
+
+        setTimeout(() => {
+          window.location.href = 'login_form.html';
+        }, 1200);
+      } catch (err) {
+        showError(err.message || 'Could not create your account. Please try again.');
+      } finally {
+        button.disabled = false;
+        button.textContent = 'Create account';
+      }
+    }
+  </script>
+
+</body>
+</html>
